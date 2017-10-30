@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/our-cars.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:15 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Valencia - Car Hire HTML Template | Our Cars</title>
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/nouislider.css" rel="stylesheet">
+<link href="css/nouislider.pips.css" rel="stylesheet">
+<link href="css/styleWishlist.css" rel="stylesheet">
+<link href="css/materialize.min.css" rel="stylesheet">
+<!--Favicon-->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+<style>
+.default-car-item {
+	position: relative;
+}
+
+.btn-wishlist {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+</style>
+
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader"></div>
+
+		<header>
+			<!-- Left Sidebar -->
+			<ul id="slide-out-left" class="side-nav collapsible">
+				<li class="primary-color">
+					<div class="sidenav-header primary-color">
+						<div class="nav-avatar">
+							<img id="imageProfil" class="circle avatar" src="playstore-icon.png" alt="">
+							<div class="avatar-body">
+								<p id="nameUser">Rent Car Tunisia</p>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<li><a href="index.html" class="no-child"><i class="fa fa-home"
+						aria-hidden="true"></i>Home</a></li>
+				<li onclick="AllCars();"><a href="our-cars.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>All Cars</a></li>
+				<li><a href="MesVoitures.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>My Cars</a></li>
+<!-- 				<li><a href="our-cars.html" class="no-child"><i -->
+<!-- 						class="fa fa-list" aria-hidden="true"></i>Reservations</a></li> -->
+				<li><a href="wishlist.html" class="no-child"><i
+						class="fa fa-bookmark" aria-hidden="true"></i>Wishlist</a></li>
+				<li><a href="ajouterVoiturePage.html" class="no-child"><i
+						class="fa fa-share-alt" aria-hidden="true"></i>Add Car</a></li>
+				<li onclick="loginOrProfile();"><a class="no-child"><i
+						class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+				<li><a href="contact.html" class="no-child"><i
+						class="fa fa-envelope" aria-hidden="true"></i>Contact</a></li>
+				<li><a href="about-us.html" class="no-child"><i
+						class="fa fa-info-circle" aria-hidden="true"></i>About</a></li>
+
+			</ul>
+			<!-- End of Sidebars -->
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+			</div>
+		</header>
+
+
+		<!--Page Title-->
+		<section class="page-title"
+			style="background-image: url(images/background/page-title-1.jpg);">
+			<div class="auto-container">
+				<h1>Wishlist</h1>
+				<div class="bread-crumb-outer">
+					<ul class="bread-crumb clearfix">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">Wishlist</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!--Sidebar Page-->
+		<div class="sidebar-page-container">
+			<div class="auto-container">
+				<div class="row clearfix">
+
+					<!--Content Side-->
+					<div class="content-side col-lg-9 col-md-8 col-sm-12 col-xs-12">
+
+						<!--News Section-->
+						<section class="cars-section">
+
+							<div id="cars" class="row clearfix"></div>
+
+						</section>
+
+
+					</div>
+					<!--Content Side-->
+
+				</div>
+			</div>
+		</div>
+
+		<!--Main Footer-->
+		<footer class="main-footer">
+
+			<!--Footer Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="text">
+						Copyrights &copy; 2017 <a href="#">Rent Car Tunisia</a>.
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!--Scroll to top-->
+	<div class="scroll-to-top scroll-to-target" data-target=".main-header">
+		<span class="icon fa fa-long-arrow-up"></span>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.fancybox-media.js"></script>
+	<script src="js/nouislider.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/materialize.min.js"></script>
+	<script src="js/functions.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+	<script>
+	// Initialize Firebase
+	var config = {
+	    apiKey : "AIzaSyAmc30Z-Gz_hFoqC0YagMqVi6VEe2qvz9I",
+	    authDomain : "rent-car-tunisia-tizen.firebaseapp.com",
+	    databaseURL : "https://rent-car-tunisia-tizen.firebaseio.com",
+	    storageBucket : "rent-car-tunisia-tizen.appspot.com",
+	    messagingSenderId : "242629001491"
+	};
+	firebase.initializeApp(config);
+    </script>
+    
+    <script>
+	window.onload = function() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				isConnected ();
+				console.log("user connected");
+			} else {
+				console.log("not connected");
+			}
+		});
+	}
+	function isConnected (){
+		var dbRef = firebase.database().ref().child("users").child(firebase.auth().currentUser.uid).on('value',function(snapshot) {
+			console.log(snapshot.val());
+			document.getElementById("imageProfil").src = snapshot.val().imagePath;
+			document.getElementById("nameUser").innerHTML = snapshot.val().name;
+		});	
+	};
+
+	function loginOrProfile(){
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				console.log("user connected");
+				window.location="Profil.html";
+			} else {
+				console.log("not connected");
+				window.location="login.html";
+			}
+		});
+	};
+
+	function AllCars(){
+		sessionStorage.removeItem("carrosserie");
+		sessionStorage.removeItem("marque");
+	};
+	
+	</script>
+
+	<script>
+	$(document).ready(function() {
+	    firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				getWishlist();
+			} else {
+				alert("You should connect")
+			}
+		});
+	    $("#btn-filter").click(function() {
+		$(".sidebar").toggle(500);
+	    });
+	});
+
+	function getWishlist() {
+
+	    var src;
+
+	    var databaseRef = firebase.database().ref().child("users").child(firebase.auth().currentUser.uid).child("wishlist");
+	    databaseRef
+		    .on(
+			    'child_added',
+			    function(data) {
+
+				    console.log(data.val());
+
+				var car = {
+				    boite : data.val().boite,
+				    carrosserie : data.val().carrosserie,
+				    couleur : data.val().couleur,
+				    dateMiseEnCirculation : data.val().dateMiseEnCirculation,
+				    energie : data.val().energie,
+				    gouvernorat : data.val().gouvernorat,
+				    id : data.val().id,
+				    imagePath : data.val().imagePath,
+				    marque : data.val().marque,
+				    modele : data.val().modele,
+				    nombreDePlace : data.val().nombreDePlace,
+				    prix : data.val().prix,
+				    puissance : data.val().puissance,
+				    reservation : data.val().reservation,
+				    telephone : data.val().telephone,
+				    user : data.val().user
+				};
+
+				var defaultCarItem = document
+					.createElement("div");
+
+				defaultCarItem.innerHTML = '<div id="'
+					+ data.val().id
+					+ '" class="default-car-item col-lg-6 col-md-12 col-sm-6 col-xs-12"></div>';
+
+				var innerBox = document.createElement("div");
+
+				innerBox.innerHTML = '<div class="inner-box"><div class="image-box"><figure class="image"><img src="'
+					+ data.val().imagePath
+					+ '" alt=""></figure></div><div class="lower-content"><h3>'
+					+ data.val().marque
+					+ ' '
+					+ data.val().modele
+					+ '</h3><span class="info clearfix">Prix: <span class="price"><strong>'
+					+ data.val().prix
+					+ ' DT</strong>/ Jour</span></span></div></div>';
+
+				innerBox.firstChild.onclick = function() {
+				    sessionStorage.setItem("car", JSON
+					    .stringify(car));
+				    window.location = "DetailVoiture.html";
+				}
+
+				var btnWishlist = document.createElement("div");
+
+				/*if ("wishlist" in data.val()
+					&& "static user" in data.val().wishlist) {
+				    src = "images/Hearts-Filled-32.png";
+				} else {
+				    src = "images/Hearts-32.png";
+				}*/
+
+				src = "images/Hearts-Filled-32.png";
+
+				btnWishlist.innerHTML = '<div class="btn-wishlist"><img src="' + src + '"/></div>';
+
+			/*	btnWishlist.firstChild.onclick = function() {
+
+				    if (this.firstChild.getAttribute('src') == 'images/Hearts-32.png') {
+
+					this.firstChild.src = 'images/Hearts-Filled-32.png';
+
+					var wishlistRef = firebase.database()
+						.ref().child("voitures").child(
+							data.key).child(
+							"wishlist");
+
+					wishlistRef.set({
+					    "static user" : ""
+					});
+
+					var userRef = firebase.database().ref()
+						.child("users").child(
+							"static user").child(
+							"wishlist").child(data.key);
+
+					userRef.set(data.val());
+
+				    } else {
+
+					this.firstChild.src = 'images/Hearts-32.png';
+
+					firebase.database().ref().child(
+						"voitures").child(data.key)
+						.child("wishlist").child(
+							"static user").remove();
+				    }
+				}*/
+
+				defaultCarItem.firstChild
+					.appendChild(innerBox.firstChild);
+				defaultCarItem.firstChild
+					.appendChild(btnWishlist.firstChild);
+
+				document.getElementById("cars").appendChild(
+					defaultCarItem.firstChild);
+			    });
+	};
+    </script>
+
+</body>
+
+</html>

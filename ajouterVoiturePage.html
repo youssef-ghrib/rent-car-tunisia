@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:15 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Valencia - Car Hire HTML Template | About Us</title>
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link href="css/styleProfile.css" rel="stylesheet">
+<link href="css/materialize.min.css" rel="stylesheet">
+<!--Favicon-->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey : "AIzaSyAmc30Z-Gz_hFoqC0YagMqVi6VEe2qvz9I",
+		authDomain : "rent-car-tunisia-tizen.firebaseapp.com",
+		databaseURL : "https://rent-car-tunisia-tizen.firebaseio.com",
+		storageBucket : "rent-car-tunisia-tizen.appspot.com",
+		messagingSenderId : "242629001491"
+	};
+	firebase.initializeApp(config);
+</script>
+
+<script>
+window.onload = function() {
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			isConnected ();
+			console.log("user connected");
+		} else {
+			console.log("not connected")
+			alert("You should connect")
+		}
+	});
+}
+
+function isConnected (){
+	var dbRef = firebase.database().ref().child("users").child(firebase.auth().currentUser.uid).on('value',function(snapshot) {
+		console.log(snapshot.val());
+		document.getElementById("imageProfil").src = snapshot.val().imagePath;
+		document.getElementById("nameUser").innerHTML = snapshot.val().name;
+	});	
+};
+
+function loginOrProfile(){
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			console.log("user connected");
+			window.location="Profil.html";
+		} else {
+			console.log("not connected");
+			window.location="login.html";
+		}
+	});
+};
+
+function AllCars(){
+	sessionStorage.removeItem("carrosserie");
+	sessionStorage.removeItem("marque");
+};
+</script>
+
+<script type="text/javascript" src="js/oXHR.js"></script>
+
+<script>
+	
+//pointeur sur la position de l'article courant dans le catalogue
+var index = 0;
+// initialisation du catalogue
+var marques = [];
+var modeles = [];
+
+function executerRequeteMarque(callback) {
+	// on vérifie si le catalogue a déjà été chargé pour n'exécuter la requête AJAX
+	// qu'une seule fois
+	if (marques.length === 0) {
+		// on récupère un objet XMLHttpRequest
+		var xhr = getXMLHttpRequest();
+		// on réagit à l'événement onreadystatechange
+		xhr.onreadystatechange = function() {
+			// test du statut de retour de la requête AJAX
+			if (xhr.readyState == 4
+					&& (xhr.status == 200 || xhr.status == 0)) {
+				// on désérialise le catalogue et on le sauvegarde dans une variable
+				marques = JSON.parse(xhr.responseText);
+				// on lance la fonction de callback avec le catalogue récupéré
+				callback();
+			}
+		}
+		// la requête AJAX : lecture de data.json
+		xhr.open("GET", "http://rentcar.freevar.com/rentcar/getMarques.php", true);
+		xhr.send();
+	} else {
+		// on lance la fonction de callback avec le catalogue déjà récupéré précédemment
+		callback();
+	}
+}
+
+function getMarques() {
+	
+	for (var index = 0; index < marques.length; index++) {
+ 		document.getElementById("marqueSlt").innerHTML += " <option value='"+marques[index]+"'>"+marques[index]+"</option>";
+
+	}
+	
+	executerRequeteModel(getModeles);
+};
+
+function executerRequeteModel(callback) {
+	// on vérifie si le catalogue a déjà été chargé pour n'exécuter la requête AJAX
+	// qu'une seule fois
+	if (modeles.length === 0) {
+		// on récupère un objet XMLHttpRequest
+		var xhr = getXMLHttpRequest();
+		// on réagit à l'événement onreadystatechange
+		xhr.onreadystatechange = function() {
+			// test du statut de retour de la requête AJAX
+			if (xhr.readyState == 4
+					&& (xhr.status == 200 || xhr.status == 0)) {
+				// on désérialise le catalogue et on le sauvegarde dans une variable
+				modeles = JSON.parse(xhr.responseText).marques;
+				// on lance la fonction de callback avec le catalogue récupéré
+				callback();
+			}
+		}
+		// la requête AJAX : lecture de data.json
+		xhr.open("GET", "http://rentcar.freevar.com/rentcar/getCars.php", true);
+		xhr.send();
+	} else {
+		// on lance la fonction de callback avec le catalogue déjà récupéré précédemment
+		callback();
+	}
+}
+
+function getModeles(){
+	var marque = document.getElementById("marqueSlt").value;
+	console.log("$"+marque+"$");
+	console.log("getModeles: ",modeles[marque]);
+	document.getElementById("modeleSlt").innerHTML = "";
+	for (var index = 0; index < modeles[marque].length; index++) {
+ 		document.getElementById("modeleSlt").innerHTML += " <option value='"+modeles[marque][index]+"'>"+modeles[marque][index]+"</option>";
+
+	}
+};
+
+// on initialise la lecture au premier élément
+executerRequeteMarque(getMarques);
+
+	function selectMarque(){
+		console.log("selectttttttttt");
+		//console.log("marque selected: ",document.getElementById("marqueSlt").value);
+		//console.log(document.getElementById("marqueSlt").value);
+		executerRequeteModel(getModeles);
+		};
+
+	function returnPage() {
+		window.location = "index.html";
+	};
+
+	function submit() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				setCar();
+			} else {
+				alert("You should connect");
+			}
+		});
+	};
+
+	function setCar() {
+		const id = Math.round(Math.random() * (1000000000 - 1) + 1);
+
+		var file = fileInput.files[0];
+
+		if (file != null || file != undefined) 
+
+		{
+			
+			//Create a storage file
+			var storageRef = firebase.storage().ref("voitures/" + "image" + id);
+	
+			//Upload file
+			var task = storageRef.put(file);
+	
+			var url = null;
+	
+			//Update progress bar
+			task
+					.on(
+							"state_changed",
+	
+							function progress(snapshot) {
+								//console.log("progress test");
+// 								var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+// 								uploader.value = percentage;
+								if (snapshot.downloadURL != null
+										|| snapshot.downloadURL != undefined) {
+									//console.log("snapshot: ",snapshot.downloadURL);
+									url = snapshot.downloadURL;
+								}
+							}, function error(err) {
+								//console.log("error test: ",err);
+							},
+	
+							function complete() {
+								//console.log("finish ");
+								saveCarInDb(url);
+							}
+	
+					);
+	
+		}else {
+			alert("Select image please");
+				
+			}
+
+	};
+
+	function saveCarInDb(url) {
+		var user = firebase.auth().currentUser;
+		const id = Math.round(Math.random() * (1000000000 - 1) + 1);
+
+		firebase.database().ref().child("voitures").child(id).set(
+				{
+					boite : document.getElementById("boiteSlt").value,
+					carrosserie : document.getElementById("carrosserieSlt").value,
+					couleur : document.getElementById("couleurSlt").value,
+					dateMiseEnCirculation : document
+							.getElementById("dateMiseEnCirculation").value,
+					energie : document.getElementById("energieSlt").value,
+					gouvernorat : document.getElementById("villeSlt").value,
+					id : id.toString(),
+					imagePath : url,
+					marque : document.getElementById("marqueSlt").value,
+					modele : document.getElementById("modeleSlt").value,
+					nombreDePlace : document.getElementById("NbrePlace").value,
+					prix : document.getElementById("prix").value,
+					puissance : document.getElementById("puissanceSlt").value,
+					reservation : "false",
+					telephone : document.getElementById("telephone").value,
+					user : user.uid
+					//user : "not found"
+				},function(error){
+						if (error) {
+							
+						}else{
+							console.log("succuess");
+							window.location="our-cars.html";
+							}
+
+					});
+	};
+</script>
+
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader"></div>
+
+		<header>
+			<!-- Left Sidebar -->
+			<ul id="slide-out-left" class="side-nav collapsible">
+				<li class="primary-color">
+					<div class="sidenav-header primary-color">
+						<div class="nav-avatar">
+							<img id="imageProfil" class="circle avatar" src="playstore-icon.png" alt="">
+							<div class="avatar-body">
+								<p id="nameUser">Rent Car Tunisia</p>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<li><a href="index.html" class="no-child"><i class="fa fa-home"
+						aria-hidden="true"></i>Home</a></li>
+				<li onclick="AllCars();"><a href="our-cars.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>All Cars</a></li>
+				<li><a href="MesVoitures.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>My Cars</a></li>
+<!-- 				<li><a href="our-cars.html" class="no-child"><i -->
+<!-- 						class="fa fa-list" aria-hidden="true"></i>Reservations</a></li> -->
+				<li><a href="wishlist.html" class="no-child"><i
+						class="fa fa-bookmark" aria-hidden="true"></i>Wishlist</a></li>
+				<li><a href="ajouterVoiturePage.html" class="no-child"><i
+						class="fa fa-share-alt" aria-hidden="true"></i>Add Car</a></li>
+				<li onclick="loginOrProfile();"><a class="no-child"><i
+						class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+				<li><a href="contact.html" class="no-child"><i
+						class="fa fa-envelope" aria-hidden="true"></i>Contact</a></li>
+				<li><a href="about-us.html" class="no-child"><i
+						class="fa fa-info-circle" aria-hidden="true"></i>About</a></li>
+
+			</ul>
+			<!-- End of Sidebars -->
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+			</div>
+		</header>
+
+
+		<!--Page Title-->
+		<section class="page-title"
+			style="background-image: url(images/background/page-title-1.jpg);">
+			<div class="auto-container">
+				<h1>Share your car</h1>
+				<div class="bread-crumb-outer">
+					<ul class="bread-crumb clearfix">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">Share car</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+
+		<!--Sidebar Page-->
+		<div class="single-car car-details">
+			<div class="auto-container">
+				<!--Basic Details-->
+				<div class="basic-details">
+
+					<!--Info Column-->
+					<div class="info-column col-lg-4 col-md-4 col-sm-6 col-xs-12">
+						<div class="info-outer">
+							<div class="upper-info">
+								<div class="sidebar-title">
+									<h3 id="marque_modele"></h3>
+								</div>
+
+								<ul class="list">
+									<li><span class="clearfix">
+										<span class="col">Brand</span>
+										<select id="marqueSlt" onchange="selectMarque();" class="col"> </select> 
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Model</span>
+										<select id="modeleSlt" class="col"></select>
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Body</span>
+										<select id="carrosserieSlt" class="col">
+											<option value="berline">Berline</option>
+											<option value="cabriolet">Cabriolet</option>
+											<option value="citadine">Citadine</option>
+											<option value="coupe">Coupé</option>
+											<option value="familiale">Familiale</option>
+											<option value="utilitaire">Utilitaire</option>
+											<option value="4 x 4">4 x 4</option>
+										</select> 
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Energy</span>
+										<select id="energieSlt" class="col">
+											<option value="Essence">Essence</option>
+											<option value="Diesel">Diesel</option>
+										</select>
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Power</span>
+										<select id="puissanceSlt" class="col">
+											<option value="4 CV">4 CV</option>
+											<option value="5 CV">5 CV</option>
+											<option value="6 CV">6 CV</option>
+											<option value="7 CV">7 CV</option>
+											<option value="8 CV">8 CV</option>
+											<option value="9 CV">9 CV</option>
+											<option value="10 CV">10 CV</option>
+											<option value="11 CV">11 CV</option>
+											<option value="12 CV">12 CV</option>
+											<option value="13 CV">13 CV</option>
+											<option value="14 CV">14 CV</option>
+											<option value="15 CV">15 CV</option>
+											<option value="16 CV">16 CV</option>
+											<option value="17 CV">17 CV</option>
+											<option value="18 CV">18 CV</option>
+											<option value="19 CV">19 CV</option>
+											<option value="20 CV">20 CV</option>
+											<option value="plus de 20 CV">plus of 20 CV</option>
+										</select>
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">N° of places</span> 
+										<input id="NbrePlace" type="number" placeholder="N° de place" class="col">
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Transmition</span>
+										<select id="boiteSlt" class="col">
+											<option value="Automatique">Automatic</option>
+											<option value="Manuelle">Manual</option>
+										</select> 
+										</span></li>
+									<li><span class="clearfix">
+										<span class="col">Date of circulation</span>
+										<input id="dateMiseEnCirculation" type="date" placeholder="Mise en circulation" class="col"> 
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Color</span>
+										<select id="couleurSlt" class="col">
+											<option value="Noir">Black</option>
+											<option value="Gris">Grey</option>
+											<option value="Blanc">Blanc</option>
+											<option value="Rouge">White</option>
+											<option value="Bleu">Blue</option>
+											<option value="Beige">Beige</option>
+											<option value="Jaune">Yellow</option>
+											<option value="Orange">Orange</option>
+											<option value="Vert">Green</option>
+											<option value="Maron">Maron</option>
+											<option value="Autre">Other</option>
+										</select>
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Phone</span>
+										<input id="telephone" type="number" placeholder="Votre téléphone" class="col"> 
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">City</span>
+										<select id="villeSlt" class="col">
+											<option value="Ariana">Ariana</option>
+											<option value="Béja">Béja</option>
+											<option value="Ben Arous">Ben Arous</option>
+											<option value="Bizerte">Bizerte</option>
+											<option value="Gabès">Gabès</option>
+											<option value="Gafsa">Gafsa</option>
+											<option value="Jendouba">Jendouba</option>
+											<option value="Kairouan">Kairouan</option>
+											<option value="Kasserine">Kasserine</option>
+											<option value="Kébili">Kébili</option>
+											<option value="La Manouba">La Manouba</option>
+											<option value="Le Kef">Le Kef</option>
+											<option value="Mahdia">Mahdia</option>
+											<option value="Médnine">Médnine</option>
+											<option value="Monastir">Monastir</option>
+											<option value="Nabeul">Nabeul</option>
+											<option value="Sfax">Sfax</option>
+											<option value="Sidi Bouzid">Sidi Bouzid</option>
+											<option value="Siliana">Siliana</option>
+											<option value="Sousse">Sousse</option>
+											<option value="Tatouine">Tatouine</option>
+											<option value="Tozeur">Tozeur</option>
+											<option value="Tunis">Tunis</option>
+											<option value="Zaghouan">Zaghouan</option>
+										</select>
+									</span></li>
+									<li><span class="clearfix">
+										<span class="col">Price DT</span> 
+										<input id="prix" type="number" placeholder="Votre prix" class="col">
+									</span></li>
+									<li><span class="clearfix">
+										<input id="fileInput" type="file" value="Image" accept="image/*" onchange="readURL(this);">
+<!-- 										<progress id="uploader" style="background-color: #2EC06F" value="0" max="100">0%</progress> -->
+									</span></li>
+								</ul>
+							</div>
+						</div>
+						<input class="theme-btn btn-style-four" type="button" value="share" onclick="submit();"> 
+						<input class="theme-btn btn-style-four" type="button" value="return" onclick="returnPage();">
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+			<!--End Basic Details-->
+
+		<!--Main Footer-->
+		<footer class="main-footer">
+
+			<!--Footer Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="text">
+						Copyrights &copy; 2017 <a href="#">Rent Car Tunisia</a>.
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!--Scroll to top-->
+	<div class="scroll-to-top scroll-to-target" data-target=".main-header">
+		<span class="icon fa fa-long-arrow-up"></span>
+	</div>
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.fancybox-media.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/materialize.min.js"></script>
+	<script src="js/functions.js"></script>
+</body>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:15 GMT -->
+</html>

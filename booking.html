@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:54:56 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Valencia - Car Hire HTML Template | Booking</title>
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link href="css/styleBooking.css" rel="stylesheet">
+<link href="css/materialize.min.css" rel="stylesheet">
+<!--Favicon-->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader"></div>
+
+		<header>
+			<!-- Left Sidebar -->
+			<ul id="slide-out-left" class="side-nav collapsible">
+				<li class="primary-color">
+					<div class="sidenav-header primary-color">
+						<div class="nav-avatar">
+							<img id="imageProfil" class="circle avatar" src="playstore-icon.png" alt="">
+							<div class="avatar-body">
+								<p id="nameUser">Rent Car Tunisia</p>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<li><a href="index.html" class="no-child"><i class="fa fa-home"
+						aria-hidden="true"></i>Home</a></li>
+				<li onclick="AllCars();"><a href="our-cars.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>All Cars</a></li>
+				<li><a href="MesVoitures.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>My Cars</a></li>
+<!-- 				<li><a href="our-cars.html" class="no-child"><i -->
+<!-- 						class="fa fa-list" aria-hidden="true"></i>Reservations</a></li> -->
+				<li><a href="wishlist.html" class="no-child"><i
+						class="fa fa-bookmark" aria-hidden="true"></i>Wishlist</a></li>
+				<li><a href="ajouterVoiturePage.html" class="no-child"><i
+						class="fa fa-share-alt" aria-hidden="true"></i>Add Car</a></li>
+				<li onclick="loginOrProfile();"><a class="no-child"><i
+						class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+				<li><a href="contact.html" class="no-child"><i
+						class="fa fa-envelope" aria-hidden="true"></i>Contact</a></li>
+				<li><a href="about-us.html" class="no-child"><i
+						class="fa fa-info-circle" aria-hidden="true"></i>About</a></li>
+
+			</ul>
+			<!-- End of Sidebars -->
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+			</div>
+		</header>
+
+
+		<!--Page Title-->
+		<section class="page-title"
+			style="background-image: url(images/background/page-title-1.jpg);">
+			<div class="auto-container">
+				<h1>Billing Form</h1>
+				<div class="bread-crumb-outer">
+					<ul class="bread-crumb clearfix">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">Billing Form</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!--Billing Section-->
+		<section class="billing-section">
+			<div class="auto-container">
+				<div class="sec-title">
+					<h2>Billing Details</h2>
+				</div>
+				<!--Billing Form-->
+				<div class="billing-form default-form">
+
+					<!--Column-->
+					<div class="row clearfix">
+
+						<div class="form-group col-md-6 col-sm-12 col-xs-12">
+							<div class="field-label">
+								Pickup Date <span class="req">*</span>
+							</div>
+							<div class="field-inner">
+								<input type="text" class="datepicker" id="field-one"
+									name="field-name" value="" placeholder="Select the Start Date"><label
+									class="input-icon" for="field-one"><span
+									class="fa fa-calendar"></span></label>
+							</div>
+						</div>
+
+						<div class="form-group col-md-6 col-sm-12 col-xs-12">
+							<div class="field-label">
+								Drop off Date <span class="req">*</span>
+							</div>
+							<div class="field-inner">
+								<input type="text" class="datepicker" id="field-two"
+									name="field-name" value="" placeholder="Select the End Date"><label
+									class="input-icon" for="field-one"><span
+									class="fa fa-calendar"></span></label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--Billing Details-->
+				<div class="billing-details">
+					<div class="row clearfix">
+
+						<!--Product Column-->
+						<div class="product-column col-md-6 col-sm-12 col-xs-12">
+							<a onclick="rentCar();" href="#" class="theme-btn btn-style-four">Confirme</a>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+		<!--Main Footer-->
+		<footer class="main-footer">
+
+			<!--Footer Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="text">
+						Copyrights &copy; 2017 <a href="#">Rent Car Tunisia</a>.
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!--Confirmation popup-->
+	<div id="backdrop-overlay" class="backdrop-overlay"
+		style="display: none"></div>
+
+	<div id="popup-outer" class="popup-outer" style="display: none">
+		<div class="popup-box">
+			<div class="popup-container">
+				<div class="confirmation-popup">
+					<!--Close Btn-->
+					<div class="close-btn">
+						<a href="our-cars.html"><span class="fa fa-close"></span></a>
+					</div>
+
+					<div class="inner-box">
+						<div class="row clearfix">
+							<!--Image Column-->
+							<div class="image-column col-md-6 col-sm-6 col-xs-12">
+								<div class="image-box">
+									<figure class="image">
+										<img id="img" src="" alt="">
+									</figure>
+								</div>
+							</div>
+							<!--Content Column-->
+							<div class="content-column col-md-6 col-sm-6 col-xs-12">
+								<h3 id="marque_modele"></h3>
+								<ul class="info clearfix">
+									<li>Price: <span class="price"><strong id="prix"></strong>
+											/ Day</span></li>
+								</ul>
+
+								<div class="count clearfix">
+									<div class="pull-left">
+										Total : <span id="total" class="value"></span>
+									</div>
+									<div class="pull-right">
+										Status : <span class="value">PAID</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<!--Message-->
+						<div class="message-outer">
+							<div class="message">
+								<span class="fa fa-check"></span><a href="our-cars.html">YOUR
+									BOOKING WAS SUCCESSFULLY PLACED</a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Confirmation popup-->
+
+	<!--Scroll to top-->
+	<div class="scroll-to-top scroll-to-target" data-target=".main-header">
+		<span class="icon fa fa-long-arrow-up"></span>
+	</div>
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.fancybox-media.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/materialize.min.js"></script>
+	<script src="js/functions.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase-auth.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/3.6.9/firebase-database.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/3.6.9/firebase-storage.js"></script>
+
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey : "AIzaSyAmc30Z-Gz_hFoqC0YagMqVi6VEe2qvz9I",
+			authDomain : "rent-car-tunisia-tizen.firebaseapp.com",
+			databaseURL : "https://rent-car-tunisia-tizen.firebaseio.com",
+			storageBucket : "rent-car-tunisia-tizen.appspot.com",
+			messagingSenderId : "242629001491"
+		};
+		firebase.initializeApp(config);
+
+		window.onload = function() {
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					isConnected ();
+					console.log("user connected");
+				} else {
+					console.log("not connected");
+				}
+			});
+			// TODO:: Do your initialization job
+			var car = JSON.parse(sessionStorage.getItem("car"));
+			document.getElementById("marque_modele").innerHTML = car.marque
+					+ " " + car.modele;
+			document.getElementById("img").src = car.imagePath;
+			document.getElementById("prix").innerText = car.prix + " DT";
+		};
+
+		function isConnected (){
+			var dbRef = firebase.database().ref().child("users").child(firebase.auth().currentUser.uid).on('value',function(snapshot) {
+				console.log(snapshot.val());
+				document.getElementById("imageProfil").src = snapshot.val().imagePath;
+				document.getElementById("nameUser").innerHTML = snapshot.val().name;
+			});	
+		};
+
+		function loginOrProfile(){
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					console.log("user connected");
+					window.location="Profil.html";
+				} else {
+					console.log("not connected");
+					window.location="login.html";
+				}
+			});
+		};
+
+		function AllCars(){
+			sessionStorage.removeItem("carrosserie");
+			sessionStorage.removeItem("marque");
+		};
+		
+		function rentCar() {
+			const id = Math.round(Math.random() * (1000000000 - 1) + 1);
+
+			var car = JSON.parse(sessionStorage.getItem("car"));
+
+			var date1 = new Date(document.getElementById("field-one").value);
+			var date2 = new Date(document.getElementById("field-two").value);
+			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+			var today = new Date();
+		    today = Date.parse(today.getMonth()+1+'/'+today.getDate()+'/'+today.getFullYear());
+
+			if (date2.getTime() - date1.getTime() < 0 || today > date1 || today > date2) {
+				alert("Veuillez bien choisir les dates !");
+			} else {
+				//var user = firebase.auth().currentUser;
+				document.getElementById("total").innerText = car.prix * diffDays + " DT";
+
+				firebase.database().ref().child("reservations").child(id).set({
+					dateDebutRes : document.getElementById("field-one").value,
+					dateFinRes : document.getElementById("field-two").value,
+					dureeRes : diffDays,
+ 					userRes : firebase.auth().currentUser.uid,
+					voitureRes : car.id
+				});
+
+				firebase.database().ref().child("voitures").child(car.id).update({"reservation": "true"});
+
+				var body = document.getElementsByTagName("BODY")[0];
+				body.className += "popup-visible";
+
+				var backdropOverlay = document.getElementById('backdrop-overlay');
+				backdropOverlay.style.display = "block";
+
+				var popupOuter = document.getElementById('popup-outer');
+				popupOuter.style.display = "block";
+
+				sessionStorage.removeItem("car");
+			}
+		};
+	</script>
+
+</body>
+
+</html>

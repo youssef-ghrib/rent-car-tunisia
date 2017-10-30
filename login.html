@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:15 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Valencia - Car Hire HTML Template | About Us</title>
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link href="css/styleLogin.css" rel="stylesheet">
+<link href="css/materialize.min.css" rel="stylesheet">
+<!--Favicon-->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+ 	// Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyAmc30Z-Gz_hFoqC0YagMqVi6VEe2qvz9I",
+	    authDomain: "rent-car-tunisia-tizen.firebaseapp.com",
+	    databaseURL: "https://rent-car-tunisia-tizen.firebaseio.com",
+	    storageBucket: "rent-car-tunisia-tizen.appspot.com",
+	    messagingSenderId: "242629001491"
+	  };
+	  firebase.initializeApp(config);
+</script>
+
+<script>
+    window.onload = function() {
+//     	testUser();
+    };
+    
+    function testUser(){
+		firebase.auth().onAuthStateChanged(function(user) {
+			  if (user) {
+				  console.log("user in connected");
+				  isConnected ();
+				  window.location="Profil.html";
+			  } else {
+				  console.log("user in not connected");
+			  }
+			});
+
+        };
+
+        function isConnected (){
+        	var dbRef = firebase.database().ref().child("users").child(firebase.auth().currentUser.uid).on('value',function(snapshot) {
+        		console.log(snapshot.val());
+        		document.getElementById("imageProfil").src = snapshot.val().imagePath;
+        		document.getElementById("nameUser").innerHTML = snapshot.val().name;
+        	});	
+        };
+
+        function loginOrProfile(){
+        	firebase.auth().onAuthStateChanged(function(user) {
+        		if (user) {
+        			console.log("user connected");
+        			window.location="Profil.html";
+        		} else {
+        			console.log("not connected");
+        			window.location="login.html";
+        		}
+        	});
+        };
+
+        function AllCars(){
+        	sessionStorage.removeItem("carrosserie");
+        	sessionStorage.removeItem("marque");
+        };
+        
+        function register() {
+			var email = document.getElementById("email").value;
+			var password = document.getElementById("password").value;
+			var confirmPassword = document.getElementById("confirmPassword").value;
+
+			console.log("email: ",email);
+
+			if(confirmPassword==password){
+				firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+					//Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					console.log("signIn error ",error);
+					console.log("success login ");
+					//window.location="HomePage.html";
+					
+					
+	
+				});
+	
+				firebase.auth().onAuthStateChanged(function(user) {
+					  if (user) {
+						  console.log("user in connected");
+						  setUser();
+					  } else {
+						  console.log("user in not connected");
+					  }
+					});
+			}else {
+				console.log("Confirmer votre mot de passe");
+				}
+			
+		};
+
+	function setUser(){
+		const id = Math.round(Math.random() * (1000000000 - 1) + 1);
+
+		var file = fileInput.files[0];
+		//Create a storage file
+		var storageRef = firebase.storage().ref("users/" + "image" + id);
+
+		//Upload file
+		var task = storageRef.put(file);
+
+		var url = null;
+
+		//Update progress bar
+		task
+				.on(
+						"state_changed",
+
+						function progress(snapshot) {
+							//console.log("progress test");
+// 							var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+// 							uploader.value = percentage;
+							if (snapshot.downloadURL != null
+									|| snapshot.downloadURL != undefined) {
+								//console.log("snapshot: ",snapshot.downloadURL);
+								url = snapshot.downloadURL;
+							}
+						}, function error(err) {
+							//console.log("error test: ",err);
+						},
+
+						function complete() {
+							//console.log("finish ");
+							saveUserInDb(url);
+						}
+
+				);
+			
+		};
+
+	function saveUserInDb(url){
+		var user = firebase.auth().currentUser;
+
+		firebase.database().ref().child("users").child(user.uid).set(
+				{
+					name :  document.getElementById("name").value,
+					age : document.getElementById("age").value,
+					email : document.getElementById("email").value,
+					number : document.getElementById("number").value,
+					password : document.getElementById("password").value,
+					gender : document.getElementById("gender").value,
+					imagePath : url,
+				},function(error){
+						if (error) {
+							
+						}else{
+							window.location="Profil.html";
+							}
+
+					});
+		};
+    
+	  function loginEmail() {
+			var email = document.getElementById("emailLogin").value;
+			var password = document.getElementById("passwordLogin").value;
+
+			console.log("email: ",email);
+			
+			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+				//Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log("signIn error ",error);
+				//console.log("success login ");
+				//window.location="HomePage.html";
+
+			});
+
+			firebase.auth().onAuthStateChanged(function(user) {
+				  if (user) {
+					  console.log("user in connected");
+					  window.location="Profil.html";
+				  } else {
+					  console.log("user in not connected");
+				  }
+				});
+
+			
+		};
+		
+		function loginFb(){
+			var oauthurl = "https://www.facebook.com/dialog/oauth?";
+			var client_id = "1831307730419287";
+			var redirect_uri = "https://www.facebook.com/connect/login_success.html";
+			var scope = "public_profile,email,user_friends,user_photos,user_hometown,user_location,read_custom_friendlists,user_photos";
+			var final_uri = oauthurl + 'client_id=' + client_id + '&redirect_uri=' + redirect_uri + "&scope=" + scope;
+			 
+		    console.log("inside login");
+		    window.authWin = window.open(final_uri, "blank", "", true);
+		    montiorURL();
+		};	
+			
+		function montiorURL() {
+			console.log("montiorURL");
+		    window.int = self.setInterval(function () {
+		        window.authCount = window.authCount + 1;
+
+		        if (window.authWin && window.authWin.location) { 
+		            var currentURL = window.authWin.location.href;
+		            var inCallback = currentURL.indexOf("?code");
+		            if (inCallback >= 0) {
+		                var codeData = currentURL.substr(currentURL.indexOf("="));
+		                var code=codeData.substring(1);
+		                getAccesstoken(code);
+		            }
+		        }
+		        if (window.authCount > 30) {
+		            alert('30 seconds time out');
+		            window.authCount  =0;
+		            window.clearInterval(int)
+		            window.authWin.close();
+		        }
+			}, 500);
+		};
+			
+
+			
+		function getAccesstoken(code){
+		    $.ajax({
+		        type : "GET",
+		        url :'https://graph.facebook.com/oauth/access_token?client_id=1831307730419287&redirect_uri=https://www.facebook.com/connect/login_success.html&client_secret=e8463879b9204b9ff9172d262899de95&code='+code,
+		        success : function(data) {
+		        	
+		            try {
+		            	console.log("getAccesstoken acess success");
+		                access_token=parseToken(data);
+		                localStorage['accesstoken']=access_token;
+		                window.clearInterval(int)
+		                window.authWin.close();
+		                getProfile();
+		            }
+		            catch (e) {
+		                console.log(e);
+		            }
+		        },
+		        error : function() {
+		            console.log("acess token error");
+		        }
+		    });    
+		};		
+
+		function parseToken(accesstoken){
+		    var c = accesstoken.indexOf('access_token') ; 
+		    var L = accesstoken.indexOf('&expires') ;
+		    var y = accesstoken.substring(0, c) + accesstoken.substring(L, accesstoken.length);
+		    var remaining = accesstoken.replace(y,'');
+		    return (remaining.substring(13));
+		};		
+			 
+		function getProfile() {
+			$.ajax({
+		        type : "GET",
+		        dataType : 'json',
+		        url : 'https://graph.facebook.com/me?fields=email,first_name,last_name,education,location,languages,hometown,picture&permissions=read_stream&access_token=' +localStorage['accesstoken'] ,
+		        success : function(data) {
+			        console.log("getProfile() data = " + data);
+		            signupUserByFacebook(data);	
+		        },
+		        error : function() {
+		            console.log("Unable to get your friends on Facebook");
+		        }
+		    });
+		};	
+
+		function signupUserByFacebook(data){
+			var randomPassword = data.first_name+data.last_name;
+			firebase.auth().createUserWithEmailAndPassword(data.email,randomPassword ).then(function(user){
+
+						  var date = new Date();
+						  firebase.database().ref().child("users").child(user.uid).set(
+								  {
+										name :  data.first_name+" "+data.last_name,
+										age : "",
+										email : user.email,
+										number : "",
+										password : randomPassword,
+										gender : "",
+										imagePath : data.picture.data.url,
+									},function(error){
+											if (error) {
+												
+											}else{
+												window.location="Profil.html";
+												}
+
+								});
+					  
+			}).catch(function(error) {
+				  // Handle Errors here.
+				  var errorCode = error.code;
+				  if (errorCode === "auth/email-already-in-use"){  
+						firebase.auth().signInWithEmailAndPassword(data.email,randomPassword ).catch(function(error) {
+							  var errorCode = error.code;
+							  var errorMessage = error.message;
+							  console.log(errorCode);
+							  console.log(errorMessage);
+							});	  
+				  }	  
+			});
+			
+			
+		};		
+			
+			
+</script>
+
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader"></div>
+
+		<header>
+			<!-- Left Sidebar -->
+			<ul id="slide-out-left" class="side-nav collapsible">
+				<li class="primary-color">
+					<div class="sidenav-header primary-color">
+						<div class="nav-avatar">
+							<img id="imageProfil" class="circle avatar" src="playstore-icon.png" alt="">
+							<div class="avatar-body">
+								<p id="nameUser">Rent Car Tunisia</p>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<li><a href="index.html" class="no-child"><i class="fa fa-home"
+						aria-hidden="true"></i>Home</a></li>
+				<li onclick="AllCars();"><a href="our-cars.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>All Cars</a></li>
+				<li><a href="MesVoitures.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>My Cars</a></li>
+<!-- 				<li><a href="our-cars.html" class="no-child"><i -->
+<!-- 						class="fa fa-list" aria-hidden="true"></i>Reservations</a></li> -->
+				<li><a href="wishlist.html" class="no-child"><i
+						class="fa fa-bookmark" aria-hidden="true"></i>Wishlist</a></li>
+				<li><a href="ajouterVoiturePage.html" class="no-child"><i
+						class="fa fa-share-alt" aria-hidden="true"></i>Add Car</a></li>
+				<li onclick="loginOrProfile();"><a class="no-child"><i
+						class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+				<li><a href="contact.html" class="no-child"><i
+						class="fa fa-envelope" aria-hidden="true"></i>Contact</a></li>
+				<li><a href="about-us.html" class="no-child"><i
+						class="fa fa-info-circle" aria-hidden="true"></i>About</a></li>
+
+			</ul>
+			<!-- End of Sidebars -->
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+			</div>
+		</header>
+
+
+		<!--Page Title-->
+		<section class="page-title"
+			style="background-image: url(images/background/page-title-1.jpg);">
+			<div class="auto-container">
+				<h1>Connexion</h1>
+				<div class="bread-crumb-outer">
+					<ul class="bread-crumb clearfix">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">Connexion</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+
+		<!--About Us Section-->
+		<section class="about-us-section">
+			<div class="auto-container">
+			
+				<!--Form Column-->
+    			<div class="form-column pull-left col-md-4 col-sm-12 col-xs-12">
+    				<div class="form-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+    					<!--Tabs Box-->
+    					<div class="tabs-box booking-tabs">
+    						<!--Tab Buttons-->
+    						<ul class="tab-buttons clearfix">
+								<li class="tab-btn active-btn" data-tab="#car-rental-tab"><div class="icon-box"><span class="flaticon-car-3"></span></div> <span class="txt"> Sign In</span></li>
+								<li class="tab-btn" data-tab="#van-rental-tab"><div class="icon-box"><span class="flaticon-car-3"></span> </div> <span class="txt"> Sign Up</span></li>
+							</ul>
+							
+							<!--Tabs Content-->
+							<div class="tabs-content">
+								<!--Tab / Active Tab-->
+								<div class="tab active-tab" id="car-rental-tab">
+									<div class="default-form">
+										<form method="post" action="http://wp1.themexlab.com/2017/valencia/contact.html">
+											
+                                            <div class="field-label">Email</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="emailLogin" type="email" name="field-name" value="" placeholder="Your email"></div>
+												</div>
+											</div>
+											<div class="field-label">Password</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="passwordLogin" type="password" name="field-name" value="" placeholder="Your password"></div>
+												</div>
+											</div>
+                                            
+											<div class="row clearfix">
+                                                
+                                                <div class="span-bottom-20"></div>
+                                                
+                                                <div class="form-group col-sm-12 col-xs-12">
+                                                	<button type="button" onclick="loginEmail();" class="theme-btn btn-style-four">Login</button>
+                                                </div>
+                                                
+<!--                                                 <div class="form-group col-sm-12 col-xs-12"> -->
+<!--                                                 	<button type="button" class="theme-btn btn-style-facebook" onclick="loginFb()">Facebook</button> -->
+<!--                                                 </div> -->
+                                                
+											</div>
+											
+										</form>
+									</div>
+								</div>
+								
+								<!--Tab-->
+								<div class="tab" id="van-rental-tab">
+									<div class="default-form">
+										<form>
+											
+                                            <div class="field-label">Name</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="name" type="text" name="field-name" value="" placeholder="Your name"></div>
+												</div>
+											</div>
+											
+											<div class="field-label">Email</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="email" type="email" name="field-name" value="" placeholder="Your email"></div>
+												</div>
+											</div>
+											
+											<div class="field-label">Password</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="password" type="password" name="field-name" value="" placeholder="Your password"></div>
+												</div>
+											</div>
+											
+											<div class="field-label">Confirm Password</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="confirmPassword" type="password" name="field-name" value="" placeholder="Confirm password"></div>
+												</div>
+											</div>
+											
+											<div class="field-label">Phone</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="number" type="number" name="field-name" value="" placeholder="Your number"></div>
+												</div>
+											</div>
+											
+											<div class="field-label">Age</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="age" type="number" name="field-name" value="" placeholder="Your age"></div>
+												</div>
+											</div>
+											
+											<div class="field-label">Gender</div>
+                               				<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner">
+													<input id="gender" type="radio" name="gender" value="male"> Male
+  													<input id="gender" type="radio" name="gender" value="female"> Female
+													</div>
+												</div>
+											</div>
+											
+											<div class="row clearfix">
+                                				<div class="form-group col-md-12 col-sm-12 col-xs-12">
+													<div class="field-inner"><input id="fileInput" type="file" value="Image" accept="image/*"></div>
+												</div>
+											</div>
+                                            
+											<div class="row clearfix">
+                                               
+                                                
+                                                <div class="span-bottom-20"></div>
+                                                
+                                                <div class="form-group col-sm-12 col-xs-12">
+                                                	<button type="button" onclick="register();" class="theme-btn btn-style-three">Register</button>
+                                                </div>
+                                                
+											</div>
+											
+										</form>
+									</div>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+			</div>
+		
+		</section>
+		</div>
+
+		<!--Main Footer-->
+		<footer class="main-footer">
+
+			<!--Footer Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="text">
+						Copyrights &copy; 2017 <a href="#">Rent Car Tunisia</a>.
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!--Scroll to top-->
+	<div class="scroll-to-top scroll-to-target" data-target=".main-header">
+		<span class="icon fa fa-long-arrow-up"></span>
+	</div>
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.fancybox-media.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/materialize.min.js"></script>
+	<script src="js/functions.js"></script>
+</body>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:15 GMT -->
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/car-single.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:19 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Valencia - Car Hire HTML Template | Our Cars</title>
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/styleDetailCar.css" rel="stylesheet">
+<link rel="stylesheet" href="css/fontawesome-stars-o.css">
+<link href="css/materialize.min.css" rel="stylesheet">
+<!--Favicon-->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader"></div>
+
+		<header>
+			<!-- Left Sidebar -->
+			<ul id="slide-out-left" class="side-nav collapsible">
+				<li class="primary-color">
+					<div class="sidenav-header primary-color">
+						<div class="nav-avatar">
+							<img id="imageProfil" class="circle avatar" src="playstore-icon.png" alt="">
+							<div class="avatar-body">
+								<p id="nameUser">Rent Car Tunisia</p>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<li><a href="index.html" class="no-child"><i class="fa fa-home"
+						aria-hidden="true"></i>Home</a></li>
+				<li onclick="AllCars();"><a href="our-cars.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>All Cars</a></li>
+				<li><a href="MesVoitures.html" class="no-child"><i
+						class="fa fa-car" aria-hidden="true"></i>My Cars</a></li>
+<!-- 				<li><a href="our-cars.html" class="no-child"><i -->
+<!-- 						class="fa fa-list" aria-hidden="true"></i>Reservations</a></li> -->
+				<li><a href="wishlist.html" class="no-child"><i
+						class="fa fa-bookmark" aria-hidden="true"></i>Wishlist</a></li>
+				<li><a href="ajouterVoiturePage.html" class="no-child"><i
+						class="fa fa-share-alt" aria-hidden="true"></i>Add Car</a></li>
+				<li onclick="loginOrProfile();"><a class="no-child"><i
+						class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+				<li><a href="contact.html" class="no-child"><i
+						class="fa fa-envelope" aria-hidden="true"></i>Contact</a></li>
+				<li><a href="about-us.html" class="no-child"><i
+						class="fa fa-info-circle" aria-hidden="true"></i>About</a></li>
+
+			</ul>
+			<!-- End of Sidebars -->
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+			</div>
+		</header>
+
+		<!--Page Title-->
+		<section class="page-title"
+			style="background-image: url(images/background/page-title-1.jpg);">
+			<div class="auto-container">
+				<h1>Detail Car</h1>
+				<div class="bread-crumb-outer">
+					<ul class="bread-crumb clearfix">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">Detail car</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+
+		<!--Sidebar Page-->
+		<div class="single-car car-details">
+			<div class="auto-container">
+				<!--Basic Details-->
+				<div class="basic-details">
+					<div class="row clearfix">
+						<!--Carousel Column-->
+						<div class="carousel-column col-lg-8 col-md-8 col-sm-12 col-xs-12">
+							<figure class="image">
+								<span class="lightbox-image option-btn"><img id="img"
+									src="" alt=""></span>
+							</figure>
+							<div class="text-center br-wrapper br-theme-bootstrap-stars">
+								<select id="example">
+									<option value=""></option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</div>
+						</div>
+
+						<!--Info Column-->
+						<div class="info-column col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="info-outer">
+								<div class="upper-info">
+									<div class="sidebar-title">
+										<h3 id="marque_modele"></h3>
+									</div>
+
+									<ul class="list">
+										<li><span class="clearfix"><span class="col">Body</span>
+												<span id="carrosserie" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">Energy</span>
+												<span id="energie" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">Power</span>
+												<span id="puissance" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">N°
+													of places</span> <span id="nbrePlace" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">Transmition</span>
+												<span id="boite" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">Date
+													of circulation</span> <span id="dateMec" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">Color</span>
+												<span id="couleur" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">Phone</span>
+												<span id="tel" class="col"></span></span></li>
+										<li><span class="clearfix"><span class="col">City</span>
+												<span id="ville" class="col"></span></span></li>
+									</ul>
+								</div>
+								<span class="info clearfix">Price: <span class="price"><strong
+										id="prix"></strong> / Day</span></span>
+							</div>
+							<a class="theme-btn btn-style-four" onclick="rentCar();">Rent car</a>
+						</div>
+
+					</div>
+				</div>
+				<!--End Basic Details-->
+
+
+				<!--Product Info Tabs-->
+				<div class="product-info-tabs">
+
+					<!--Product Tabs-->
+					<div class="prod-tabs tabs-box" id="product-tabs">
+
+						<!--Tabs Content-->
+						<div class="tabs-container tabs-content">
+
+							<!--Tab / Active Tab-->
+							<div class="tab active-tab" id="prod-reviews">
+
+								<!--Add Review-->
+								<div class="add-review">
+									<h3>Add a Review</h3>
+
+									<form method="post"
+										action="http://wp1.themexlab.com/2017/valencia/shop-single.html">
+										<div class="row clearfix">
+											<div class="form-group col-md-12 col-sm-12 col-xs-12">
+												<label>Your Review</label>
+												<textarea id="review-message" name="review-message"></textarea>
+											</div>
+											<div
+												class="form-group text-right col-md-12 col-sm-12 col-xs-12">
+												<button type="button" onclick="submitReview();"
+													class="theme-btn btn-style-three">Add Review</button>
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<h3 id="review_nbr"></h3>
+
+								<!--Reviews Container-->
+								<div id="reviews-container" class="reviews-container">
+
+									<!--Reviews-->
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!--Main Footer-->
+		<footer class="main-footer">
+
+			<!--Footer Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="text">
+						Copyrights &copy; 2017 <a href="#">Rent Car Tunisia</a>.
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!--Scroll to top-->
+	<div class="scroll-to-top scroll-to-target" data-target=".main-header">
+		<span class="icon fa fa-long-arrow-up"></span>
+	</div>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.fancybox-media.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/jquery.barrating.min.js"></script>
+	<script src="js/materialize.min.js"></script>
+	<script src="js/functions.js"></script>
+
+	<script type="text/javascript">
+	$(function() {
+	    $('#example').barrating(
+		    {
+			theme : 'fontawesome-stars-o',
+			onSelect : function(value, text, event) {
+
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						if (typeof (event) !== 'undefined') {
+							// rating was selected by a user
+							var car = JSON.parse(sessionStorage
+								.getItem("car"));
+
+							var ratingRef = firebase.database().ref()
+								.child("voitures").child(car.id).child(
+									"rating").push();
+
+							var userId = firebase.auth().currentUser.uid;
+
+							ratingRef.set({
+							    "rating" : value
+							});
+						    } else {
+							// rating was selected programmatically
+							// by calling `set` method
+						    }
+					} else {
+						alert("You should connect");
+					}
+				});
+			}
+		    });
+	});
+
+	function submitReview() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				addReview();
+			} else {
+				alert("You should connect");
+			}
+		});
+	};
+
+	function addReview() {
+
+	    var car = JSON.parse(sessionStorage.getItem("car"));
+
+	    var reviewsRef = firebase.database().ref().child("voitures").child(
+		    car.id).child("reviews").push();
+
+	    var date = new Date();
+	    var review = document.getElementById("review-message").value;
+
+	    var userId = firebase.auth().currentUser.uid;
+	    var databaseRef = firebase.database().ref().child("users").child(userId);
+		databaseRef.on('value', function(data) {
+
+			reviewsRef
+		    .set({
+			'name' : data.val().name,
+			'date' : date.toLocaleDateString(),
+			'photo' : data.val().imagePath,
+			'review' : review
+		    });
+
+		$("#reviews-container").prepend($('<article class="review-box clearfix"><figure class="rev-thumb"><img src="'
+	 		    + data.val().imagePath
+	 		    + '" alt=""></figure><div class="rev-content"><div class="rev-info">'
+	 		    + data.val().name
+	 		    + ' - '
+	 		    + date.toLocaleDateString()
+	 		    + '</div><div class="rev-text"><p>'
+	 		    + review
+	 		    + '</p></div></div></article>').fadeIn('slow'));
+
+		document.getElementById("review-message").value ='';
+			});
+	}
+    </script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+	<script>
+	// Initialize Firebase
+	var config = {
+	    apiKey : "AIzaSyAmc30Z-Gz_hFoqC0YagMqVi6VEe2qvz9I",
+	    authDomain : "rent-car-tunisia-tizen.firebaseapp.com",
+	    databaseURL : "https://rent-car-tunisia-tizen.firebaseio.com",
+	    storageBucket : "rent-car-tunisia-tizen.appspot.com",
+	    messagingSenderId : "242629001491"
+	};
+	firebase.initializeApp(config);
+    </script>
+
+	<script>
+	window.onload = function() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				isConnected ();
+				console.log("user connected");
+			} else {
+				console.log("not connected");
+			}
+		});
+	    // TODO:: Do your initialization job
+	    displayCar();
+	    displayComments();
+	};
+
+	function loginOrProfile(){
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				console.log("user connected");
+				window.location="Profil.html";
+			} else {
+				console.log("not connected");
+				window.location="login.html";
+			}
+		});
+	};
+
+	function isConnected (){
+		var dbRef = firebase.database().ref().child("users").child(firebase.auth().currentUser.uid).on('value',function(snapshot) {
+			console.log(snapshot.val());
+			document.getElementById("imageProfil").src = snapshot.val().imagePath;
+			document.getElementById("nameUser").innerHTML = snapshot.val().name;
+		});	
+	};
+
+	function AllCars(){
+		sessionStorage.removeItem("carrosserie");
+		sessionStorage.removeItem("marque");
+	};
+
+	function displayCar() {
+	    var car = JSON.parse(sessionStorage.getItem("car"));
+
+	    document.getElementById("marque_modele").innerHTML = car.marque
+		    + " " + car.modele;
+	    document.getElementById("dateMec").innerHTML = car.dateMiseEnCirculation;
+	    document.getElementById("ville").innerText = car.gouvernorat;
+	    document.getElementById("nbrePlace").innerText = car.nombreDePlace;
+	    document.getElementById("tel").innerText = car.telephone;
+	    document.getElementById("prix").innerText = car.prix + " DT";
+	    document.getElementById("carrosserie").innerText = car.carrosserie;
+	    document.getElementById("energie").innerText = car.energie;
+	    document.getElementById("puissance").innerText = car.puissance;
+	    document.getElementById("boite").innerText = car.boite;
+	    document.getElementById("couleur").innerText = car.couleur;
+	    document.getElementById("img").src = car.imagePath;
+	};
+
+	function displayComments() {
+
+	    var car = JSON.parse(sessionStorage.getItem("car"));
+
+	    var data = car["reviews"];
+
+	    var reviewNbr = document.getElementById("review_nbr");
+	    reviewNbr.innerHTML = Object.keys(data).length + ' Reviews Found';
+
+	    Object
+		    .keys(data)
+		    .reverse()
+		    .forEach(
+			    function(prop) {
+
+				var reviewsContainer = document
+					.getElementById("reviews-container");
+
+				reviewsContainer.innerHTML += '<article class="review-box clearfix"><figure class="rev-thumb"><img src="' + data[prop].photo + '" alt=""></figure><div class="rev-content"><div class="rev-info">'
+					+ data[prop].name
+					+ ' - '
+					+ data[prop].date
+					+ '</div><div class="rev-text"><p>'
+					+ data[prop].review
+					+ '</p></div></div></article>';
+			    });
+	};
+
+	function rentCar(){
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					testOwner();
+				} else {
+					alert("You should connect");
+				}
+			});
+		};
+
+	function testOwner(){
+
+		var car = JSON.parse(sessionStorage.getItem("car"));
+		
+		console.log(firebase.auth().currentUser.uid);
+		
+			var dbRef = firebase.database().ref().child("voitures").child(car.id).on('value',function(snapshot) {
+				console.log(snapshot.val().user);
+				if (snapshot.val().user==firebase.auth().currentUser.uid){
+						alert("You can't rent your car");
+								
+					}else if (snapshot.val().reservation=="true"){
+						alert("You can't rent this car");
+							
+						}else {
+							window.location="booking.html";
+						}
+			});	
+		};
+
+	function testReservation(){
+		var car = JSON.parse(sessionStorage.getItem("car"));
+		
+			var dbRef = firebase.database().ref().child("voitures").child(car.id).on('value',function(snapshot) {
+				console.log(snapshot.val().reservation);
+				
+			});	
+		};
+
+    </script>
+
+</body>
+
+<!-- Mirrored from wp1.themexlab.com/2017/valencia/car-single.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Feb 2017 21:56:25 GMT -->
+</html>
